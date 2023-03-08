@@ -392,6 +392,9 @@ function appendChatMessage(event, checkmark_id) {
     if (event.data) {
         div.innerHTML = '<b>' + (event.extra.userFullName || event.userid) + ':</b><br>' + event.data.chatMessage;
 
+	    var speech = new SpeechSynthesisUtterance(event.data.chatMessage);
+	    speechSynthesis.speak(speech);
+	
         if (event.data.checkmark_id) {
             connection.send({
                 checkmark: 'received',
