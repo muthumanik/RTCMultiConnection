@@ -9,6 +9,7 @@ var httpServer = require('http');
 const ioServer = require('socket.io');
 const RTCMultiConnectionServer = require('rtcmulticonnection-server');
 
+var IP = "10.6.63.53";
 var PORT = 9001;
 var isUseHTTPs = false;
 
@@ -266,7 +267,7 @@ if (isUseHTTPs) {
 }
 
 RTCMultiConnectionServer.beforeHttpListen(httpApp, config);
-httpApp = httpApp.listen(process.env.PORT || PORT, process.env.IP || "0.0.0.0", function() {
+httpApp = httpApp.listen(process.env.PORT || PORT, process.env.IP || IP, function() {
     RTCMultiConnectionServer.afterHttpListen(httpApp, config);
 });
 
