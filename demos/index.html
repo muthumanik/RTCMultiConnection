@@ -200,7 +200,9 @@ var publicRoomIdentifier = 'dashboard';
 var connection = new RTCMultiConnection();
 
 
-connection.socketURL = '/';
+connection.socketURL = "https://192.168.27.23:9001/";
+
+//connection.socketURL = '/';
 // connection.socketURL = 'https://muazkhan.com:9001/';
 
 //connection.extra.userFullName = params.userFullName;
@@ -213,6 +215,12 @@ connection.socketMessageEvent = 'canvas-dashboard-demo';
 
 // keep room opened even if owner leaves
 connection.autoCloseEntireSession = true;
+
+//const params = new URLSearchParams(document.location.search);
+//const name = params.get("name");
+//console.info(name); //show name
+//console.log("############## name entered ##################");
+//console.log(name);
 
 connection.connectSocket(function(socket) {
 
