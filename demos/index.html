@@ -79,13 +79,8 @@
 }
 
 #main-video {
-    
-    border-bottom: 1px solid #121010;
-    
     display: flex;
 	height: 250px;
-	
-
 }
 
 hr {
@@ -118,15 +113,8 @@ hr {
     display: flex;
 	margin-top:10%;
 	margin-left:10%;
-	
-	
 }
-.main-box{
-    
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-}
+
 element.style {
 	padding-right:4px;
 }
@@ -146,14 +134,14 @@ element.style {
 
 /<div class='box'style="padding-right:4px;">
     <video id="main-video"  width="320px" height="240px" controls playsinline autoplay> </video>
-	<div id="other-videos" > </div>
+	<div id="other-videos"> </div>
 </div>
 
 <div id="widget-container" style="position: fixed;bottom: 0;right: 0;left: 2%;height: 2%;border: 1px solid black; border-top:0; border-bottom: 0;"></div>
 
     <canvas id="temp-stream-canvas" style="display: none;"></canvas>
 
- <div style="margin-bottom: 20px;position: absolute;right: 0;absolute;bottom: 0;background: white; padding-bottom: 20px; width: 30%">
+ <div style="position: absolute;right: 0;absolute;bottom: 0;background: white; padding-right: 4px; width: 200px">
         <div id="conversation-panel"></div>
         <div id="key-press" style="text-align: right; display: none; font-size: 11px;">
             <span style="vertical-align: middle;"></span>
@@ -188,15 +176,20 @@ var connection = new RTCMultiConnection();
 //connection.socketURL = '/';
 // connection.socketURL = 'https://muazkhan.com:9001/';
 
-connection.extra.userFullName = "Guest";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const name = urlParams.get('username');
 
+if ( null == name )
+{
+connection.extra.userFullName = "Guest";
+}
+else{
+connection.extra.userFullName = name;
+}
 console.info(name);
 
-connection.extra.userFullName = name;
 
 /// make this room public
 connection.publicRoomIdentifier = params.publicRoomIdentifier;
@@ -279,7 +272,7 @@ connection.onopen = function(event) {
 };
 
 connection.onclose = connection.onerror = connection.onleave = function(event) {
-  //  connection.onUserStatusChanged(event);
+    connection.onUserStatusChanged(event);
 };
 
 connection.onmessage = function(event) {
@@ -345,7 +338,7 @@ connection.onstream = function(event) {
         video.srcObject = event.stream;
         $('#main-video').show();
     } else {
-        event.mediaElement.controls = false;
+        event.mediaElement.controls = true;
 
         var otherVideos = document.querySelector('#other-videos');
 		
